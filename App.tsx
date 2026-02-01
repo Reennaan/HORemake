@@ -148,6 +148,13 @@ const App: React.FC = () => {
           iconUrl="https://img.icons8.com/color/48/monitor--v1.png" 
           onDoubleClick={() => toggleWindow('main')} 
         />
+        <DesktopIcon
+          name="Thoughs"
+          iconUrl={import.meta.env.BASE_URL+"img/hipnose.ico"}
+          onDoubleClick={() => window.location.assign("https://hiddenwoods.neocities.org/blog")}
+        
+        />
+
       </div>
 
       {/* Main Window - Centered on screen, responsive width */}
