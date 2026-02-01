@@ -1,0 +1,47 @@
+
+import React, { useEffect, useRef } from 'react';
+
+interface Props {
+  assetBase: string;
+}
+
+const WinampWrapper: React.FC<Props> = ({ assetBase }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+    const initWebamp = async () => {
+      // @ts-ignore
+      if (window.Webamp && containerRef.current) {
+        // @ts-ignore
+        const webamp = new window.Webamp({
+          initialTracks: [{
+            metaData: { artist: "Final Fantasy IX", title: "Fairy Battle" },
+            url: "sounds/fairy-battle.mp3"
+          }],
+          initialSkin: { url: `${assetBase}img/reiayanami_winskin.wsz` }
+        });
+        await webamp.renderWhenReady(containerRef.current);
+        webamp.appendTracks([
+          {ulr: 'sounds/into-the-depths-catacombs.mp3'},
+          {url: 'sounds/fallen-down.mp3'},
+        ]);
+
+
+
+
+      }
+    };
+    initWebamp();
+  }, [assetBase]);
+
+  return (
+    <div className="flex flex-col items-start gap-1 md:gap-2 pointer-events-none">
+      <div 
+        ref={containerRef} 
+        className="scale-[0.7] md:scale-90 origin-top-right md:origin-top-left pointer-events-auto"
+      />
+    </div>
+  );
+};
+
+export default WinampWrapper;

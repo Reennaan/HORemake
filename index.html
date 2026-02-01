@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hiddenwoods.zip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/ms-ui-gothic" rel="stylesheet">
+    <script src="https://js-dos.com/v7/build/releases/v7.3.111/js-dos/js-dos.js"></script>
+    <link href="https://js-dos.com/v7/build/releases/v7.3.111/js-dos/js-dos.css" rel="stylesheet">
+    <script src="https://unpkg.com/webamp@1.4.0/built/webamp.bundle.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'WildBreathOfZelda';
+            src: url('https://fonts.cdnfonts.com/css/wild-breath-of-zelda') format('woff2');
+        }
+
+        :root {
+            --retro-bg: #f5eee4;
+            --win95-gray: #C0C0C0;
+            --win95-blue: #000080;
+        }
+
+        body {
+            font-family: 'MS UI Gothic', 'MS PGothic', Tahoma, sans-serif;
+            background-color: black;
+            color: black;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            image-rendering: pixelated;
+        }
+
+        
+        * {
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
+        }
+
+        *::-webkit-scrollbar {
+            display: none; 
+        }
+
+        
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 3px 100%;
+            opacity: 0.3;
+        }
+
+        .crt-vignette {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.4) 100%);
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .scanline-bar {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.05), transparent);
+            pointer-events: none;
+            z-index: 10000;
+            animation: scanline 8s linear infinite;
+        }
+
+        /* Retro Animations */
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff; }
+            50% { text-shadow: -2px 2px #ff00ff, 2px -2px #00ffff; }
+            100% { text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff; }
+        }
+
+        .glitch-text {
+            animation: glitch 0.3s infinite alternate;
+        }
+
+        .win95-border {
+            box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px #808080, inset 2px 2px #fff;
+        }
+
+        .win95-button {
+            box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px #808080, inset 2px 2px #fff;
+            background: var(--win95-gray);
+        }
+
+        .win95-button:active {
+            box-shadow: inset 1px 1px #0a0a0a, inset -1px -1px #dfdfdf, inset 2px 2px #808080, inset -2px -2px #fff;
+            padding: 2px 0 0 2px;
+        }
+
+        .inset-shadow {
+            box-shadow: inset 2px 2px 0 #808080, inset -2px -2px 0 #fff;
+        }
+
+        .rpg-glow {
+            animation: rpgGlow 2s infinite alternate;
+        }
+
+        @keyframes rpgGlow {
+            0% { color: #ff0000; text-shadow: 0 0 5px #ff0000; }
+            25% { color: #ff7f00; text-shadow: 0 0 10px #ff7f00; }
+            50% { color: #9900ff; text-shadow: 0 0 15px #9900ff; }
+            75% { color: #00ff00; text-shadow: 0 0 10px #00ff00; }
+            100% { color: #ff0000; text-shadow: 0 0 5px #ff0000; }
+        }
+    
+        
+        canvas.jsdos-canvas {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain;
+            background: black;
+        }
+
+        
+        .counter-digit {
+            background: black;
+            color: #00ff00;
+            padding: 0 2px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            border-right: 1px solid #333;
+            font-size: 14px;
+        }
+        .counter-digit:last-child {
+            border-right: none;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+
+{
+  "name": "hiddenwoods.zip",
+  "description": "A retro-inspired Neocities-style personal portal with Winamp, DOOM, and CRT effects.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
