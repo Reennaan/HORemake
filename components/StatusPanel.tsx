@@ -42,7 +42,7 @@ const StatusPanel: React.FC<Props> = ({ assetBase }) => {
       <div className="flex gap-3 items-start border-b-2 border-dotted border-gray-400 pb-3">
         <div className="w-14 h-14 win95-border bg-black p-[2px] flex-shrink-0 group overflow-hidden relative">
           <img 
-            src="/img/me.jpg" 
+            src="./img/me.jpg" 
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             alt="User Avatar"
           />
@@ -56,6 +56,8 @@ const StatusPanel: React.FC<Props> = ({ assetBase }) => {
             <span className="w-2 h-2 bg-yellow-500 rounded-full border border-gray-400"></span>
             <span className="w-2 h-2 bg-blue-500 rounded-full border border-gray-400"></span>
           </div>
+          <img src="/img/noodles.gif" />
+
         </div>
       </div>
 

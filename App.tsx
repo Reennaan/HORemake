@@ -366,7 +366,7 @@ const App: React.FC = () => {
       {/* Snackbar */}
       {isSaved && (
         <div className="fixed bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-0 z-[10001] animate-pulse">
-           <img src='img/piramidhead3.png'/>
+           <img src='./img/piramidhead3.png'/>
         </div>
       )}
 
