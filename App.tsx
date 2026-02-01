@@ -54,7 +54,7 @@ const App: React.FC = () => {
 
   const handleSave = () => {
     setIsSaved(true);
-    const audio = new Audio('./sounds/save.mp3');
+    const audio = new Audio(import.meta.env.BASE_URL+ "sounds/save.mp3");
     audio.play().catch(() => {});
     setTimeout(() => setIsSaved(false), 3000);
     var save = document.getElementsByClassName('unsaved')

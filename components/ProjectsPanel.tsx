@@ -30,28 +30,28 @@ const ProjectsPanel: React.FC = () => {
        
        <marquee>
           <div className="flex items-center gap-2 whitespace-nowrap">
-            <img src="./img/buttons/125.png" />
-            <img src="./img/buttons/bestviewed.gif" />
-            <img src="./img/buttons/goodwithcomupter.gif" />
-            <img src="./img/buttons/ie4.gif" />
-            <img src="./img/buttons/best_chrome.gif" />
+            <img src={import.meta.env.BASE_URL+"img/buttons/125.png"} />
+            <img src={import.meta.env.BASE_URL+"img/buttons/bestviewed.gif"} />
+            <img src={import.meta.env.BASE_URL+"img/buttons/goodwithcomupter.gif"} />
+            <img src={import.meta.env.BASE_URL+"img/buttons/ie4.gif"} />
+            <img src={import.meta.env.BASE_URL+"img/buttons/best_chrome.gif"} />
             <a href="https://neocities.org">
-              <img src="/img/buttons/neocities2.gif" />
+              <img src={import.meta.env.BASE_URL+"img/buttons/neocities2.gif"} />
             </a>
-            <img src="./img/buttons/java2.gif" />
-            <img src="./img/buttons/ilikecomputer.png" />
-            <img src="./img/buttons/madewithnotepad2.gif" />
-            <img src="./img/buttons/mangoad.gif" />
+            <img src={import.meta.env.BASE_URL+"img/buttons/java2.gif"} />
+            <img src={import.meta.env.BASE_URL+"img/buttons/ilikecomputer.png"} />
+            <img src={import.meta.env.BASE_URL+"img/buttons/madewithnotepad2.gif"} />
+            <img src={import.meta.env.BASE_URL+"img/buttons/mangoad.gif"} />
             <a href="https://neocities.org">
-              <img src="i/mg/buttons/neocities.gif" />
+              <img src={import.meta.env.BASE_URL+"img/buttons/neocities.gif"} />
             </a>
-            <img src="./img/buttons/phonechump.gif" />
+            <img src={import.meta.env.BASE_URL+"img/buttons/phonechump.gif"} />
             <a href="https://neocities.org">
-              <img src="./img/buttons/neocitieschill.gif" />
+              <img src={import.meta.env.BASE_URL+"img/buttons/neocitieschill.gif"} />
             </a>
-            <img src="./img/buttons/wwwbutton.gif" />
-            <img src="./img/buttons/eyes2.gif" />
-            <img src="./img/buttons/handcoded.gif" />
+            <img src={import.meta.env.BASE_URL+"img/buttons/wwwbutton.gif"} />
+            <img src={import.meta.env.BASE_URL+"img/buttons/eyes2.gif"} />
+            <img src={import.meta.env.BASE_URL+"img/buttons/handcoded.gif"} />
           </div>
         </marquee>
 

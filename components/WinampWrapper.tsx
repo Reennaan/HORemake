@@ -16,14 +16,14 @@ const WinampWrapper: React.FC<Props> = ({ assetBase }) => {
         const webamp = new window.Webamp({
           initialTracks: [{
             metaData: { artist: "Final Fantasy IX", title: "Fairy Battle" },
-            url: "/sounds/fairy-battle.mp3"
+            url: import.meta.env.BASE_URL+ "sounds/fairy-battle.mp3"
           }],
           initialSkin: { url: `${assetBase}img/reiayanami_winskin.wsz` }
         });
         await webamp.renderWhenReady(containerRef.current);
         webamp.appendTracks([
-          {url: '/sounds/into-the-depths-catacombs.mp3'},
-          {url: '/sounds/fallen-down.mp3'},
+          {url: import.meta.env.BASE_URL+ 'sounds/into-the-depths-catacombs.mp3'},
+          {url: import.meta.env.BASE_URL+ 'sounds/fallen-down.mp3'},
         ]);
 
 
