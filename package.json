@@ -8,7 +8,6 @@
     "build": "vite build",
     "deploy": "gh-pages -d dist"
   },
-
   "dependencies": {
     "@google/genai": "^1.39.0",
     "js-dos": "^8.3.20",
