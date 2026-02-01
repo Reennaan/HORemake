@@ -237,18 +237,18 @@ const App: React.FC = () => {
             <div className="internal-state-box">
               <div style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '4px', background: '#c0c0c0', padding: '4', borderBottom: '1px solid #808080' }}>INTERNAL STATE</div>
               <form onSubmit={handleGlucoseSubmit}>
-                  <div style={{ fontSize: '13px', color: '#444' }}>What is your blood sugar level? Answer us</div>
-                  <input style={{background: 'black', color: '#00ff00', width: '95%', fontSize: "1.2rem", padding: "4px", outline:'none', left: '3%'}}
+                  <div style={{ fontSize: '13px', color: '#444' }}>What is your blood sugar level? answer us...</div>
+                  <input style={{background: 'black', color: '#00ff00', width: '95%', fontSize: ".9375rem", outline:'none', left: '3%'}}
                       className="retro-input m-[5px]" 
                       type="number" 
                       placeholder="000"
                       value={glucoseLevel}
                       onChange={(e) => setGlucoseLevel(e.target.value)}
                   />
-                  <button disabled={pending} className="win95-button m-[5px]" type="submit" style={{padding:'5px',  fontFamily: '"MS Sans Serif", "Tahoma", sans-serif', fontSize: '12'}}> {pending? "Submitting..." : "Log Entry"}</button>
+                  <button disabled={pending} className="win95-button m-[5px]" type="submit" style={{padding:'5px',  fontFamily: '"MS Sans Serif", "Tahoma", sans-serif', fontSize: '8'}}> {pending? "Submitting..." : "Log Entry"}</button>
               </form>
             
-               <div style={{ marginTop: '10px', fontSize: '10px', fontFamily: 'monospace' }}>
+               <div className="m-[5px]" style={{ marginTop: '10px', fontSize: '10px', fontFamily: 'monospace' }}>
                     <div style={{ fontWeight: 'bold' }}>RECENT LOGS:</div>
                     {glucoseHistory.length === 0 ? (
                         <div style={{ opacity: 0.5 }}>... NO DATA ...</div>

@@ -22,7 +22,7 @@ const WinampWrapper: React.FC<Props> = ({ assetBase }) => {
         });
         await webamp.renderWhenReady(containerRef.current);
         webamp.appendTracks([
-          {ulr: 'sounds/into-the-depths-catacombs.mp3'},
+          {url: 'sounds/into-the-depths-catacombs.mp3'},
           {url: 'sounds/fallen-down.mp3'},
         ]);
 
