@@ -1,31 +1,69 @@
-
 import React, { useEffect, useRef } from 'react';
 
 const DoomPlayer: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const dosInstance = useRef<any>(null);
+  const isInitialized = useRef(false);
 
   useEffect(() => {
-    const loadDoom = async () => {
+    // Bloqueia a execução dupla do React 18
+    if (isInitialized.current) return;
+
+    const startDoom = async () => {
       // @ts-ignore
-      if (window.Dos && containerRef.current) {
+      if (window.Dos && containerRef.current && !isInitialized.current) {
         try {
-          // js-dos v7 usage: Dos(element).run(url)
+          isInitialized.current = true;
+          
           // @ts-ignore
-          Dos(containerRef.current).run("https://js-dos.com/cdn/upload/DOOM-@evilution.zip");
+          // Usamos a versão 7.xx do js-dos
+          const ci = await window.Dos(containerRef.current).run("./public/doom.zip");
+          dosInstance.current = ci;
+
+          // Ajuste de zoom/redimensionamento automático do canvas
+          const canvas = containerRef.current.querySelector('canvas');
+          if (canvas) {
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.objectFit = 'contain';
+          }
         } catch (e) {
-          console.error("Failed to start DOOM", e);
+          console.error("Erro ao iniciar o Doom:", e);
+          isInitialized.current = false; // Permite tentar de novo se falhar
         }
       }
     };
-    loadDoom();
+
+    // Pequeno delay para garantir que a janela do 'HORemake' terminou de renderizar
+    const timeoutId = setTimeout(startDoom, 800);
+
+    return () => {
+      clearTimeout(timeoutId);
+      // Cleanup: mata o emulador ao fechar a janela para liberar memória
+      if (dosInstance.current) {
+        dosInstance.current.exit();
+        dosInstance.current = null;
+      }
+      isInitialized.current = false;
+    };
   }, []);
 
   return (
-    <div className="w-full h-full bg-black relative flex flex-col">
-      <div className="flex-grow overflow-hidden">
-        <div ref={containerRef} className="w-full h-full" />
+    <div className="w-full h-full bg-black relative flex flex-col overflow-hidden">
+      {/* Força o container do js-dos a ocupar todo o espaço e ser visível */}
+      <style>{`
+        .dosbox-container { width: 100% !important; height: 100% !important; background: #000; }
+        .jsdos-canvas { width: 100% !important; height: 100% !important; }
+      `}</style>
+      
+      <div className="flex-grow relative bg-black">
+        <div 
+          ref={containerRef} 
+          className="absolute inset-0 w-full h-full"
+        />
       </div>
-      <div className="p-2 bg-[#c0c0c0] text-[10px] border-t border-gray-600 font-mono flex justify-between flex-shrink-0">
+
+      <div className="p-2 bg-[#c0c0c0] text-[10px] border-t border-gray-600 font-mono flex justify-between flex-shrink-0 text-black select-none">
         <span>[SYSTEM]: EMULATING DOS/4GW</span>
         <span>CONTROLS: ARROWS / CTRL / SPACE</span>
       </div>

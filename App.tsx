@@ -3,18 +3,25 @@ import React, { useState, useEffect } from 'react';
 import RetroOverlay from './components/RetroOverlay';
 import DesktopIcon from './components/DesktopIcon';
 import Window from './components/Window';
+import GlucoseMonitor from './components/GlucoseMonitor';
 import StatusPanel from './components/StatusPanel';
 import ProjectsPanel from './components/ProjectsPanel';
 import LastFmPanel from './components/LastFmPanel';
 import WinampWrapper from './components/WinampWrapper';
 import DoomPlayer from './components/DoomPlayer';
 import { GoogleGenAI } from "@google/genai";
+import { useFormStatus } from "react-dom";
 
 const ASSET_BASE = "https://raw.githubusercontent.com/Reennaan/unknown/aa343befc725f6feef2a013e7cdfbf4b8f4d69e1/";
 
 const Typewriter: React.FC<{ text: string; delay: number }> = ({ text, delay }) => {
-  const [currentText, setCurrentText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
+const [currentText, setCurrentText] = useState('');
+const [currentIndex, setCurrentIndex] = useState(0);
+
+
+
+
+
 
   useEffect(() => {
     if (currentIndex < text.length) {
@@ -28,6 +35,8 @@ const Typewriter: React.FC<{ text: string; delay: number }> = ({ text, delay }) 
 
   return <>{currentText}</>;
 };
+
+
 
 const App: React.FC = () => {
   const [windows, setWindows] = useState({
@@ -61,10 +70,41 @@ const App: React.FC = () => {
     
   };
 
+    const { pending } = useFormStatus();
+    const [glucoseHistory, setGlucoseHistory] = useState<
+      { val: string; time: string }[]
+    >(() => {
+      const saved = localStorage.getItem('glucoseHistory');
+      return saved ? JSON.parse(saved) : [];
+    });
+    const [glucoseLevel, setGlucoseLevel] = useState<string>('');
+    const handleGlucoseSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!glucoseLevel) return;
+
+      const entry = {
+        val: glucoseLevel,
+        time: new Date().toLocaleTimeString(),
+      };
+
+      setGlucoseHistory(prev => [entry, ...prev].slice(0, 5));
+      setGlucoseLevel('');
+    };
+
+  
+
+    useEffect(() => {
+      localStorage.setItem(
+        'glucoseHistory',
+        JSON.stringify(glucoseHistory)
+      );
+    }, [glucoseHistory]);
+
   const askSpirit = async (prompt: string) => {
     setLoadingAi(true);
+    const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey});
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: prompt,
@@ -115,10 +155,10 @@ const App: React.FC = () => {
         <Window 
           title="hiddenwoods.zip" 
           onClose={() => toggleWindow('main')}
-          className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] sm:w-[85vw] md:w-[700px] z-20 h-[80vh] md:h-[85vh] max-h-[900px]"
+          className="top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] sm:w-[85vw] md:w-[700px] z-20 h-[90vh] md:h-[90vh] max-h-[1200px]"
         >
           <div className="p-2 md:p-4 bg-[#f5eee4] h-full overflow-y-auto custom-scrollbar flex flex-col gap-4">
-             <div className="relative flex-shrink-0 flex items-center justify-center h-20 md:h-24">
+             <div className="relative flex-shrink-0 flex items-center justify-center h-20 md:h-28">
                 <img src={`${ASSET_BASE}img/titlebackgroud.gif`} className="absolute inset-0 w-full h-full object-cover opacity-80" />
                 <div className="relative flex items-center gap-2 md:gap-4 z-10 text-center">
                    <img src={`${ASSET_BASE}img/smileds1.gif`} className="w-6 h-6 md:w-8 md:h-8" />
@@ -181,23 +221,71 @@ const App: React.FC = () => {
         </Window>
       )}
 
-      {/* Winamp - Repositioned for mobile responsiveness */}
-      <div className="fixed top-2 right-2 md:top-[7.5vh] md:left-[calc(60%+800px)] z-[1000]">
-      </div>
+ 
 
-      <div className="fixed top-[30.5vh] left-1/2 translate-x-[500px] z-[500] pointer-events-auto">
-        <div className="relative">
+      
+
+      {/*GlucoseMonitor*/}
+        <div className='fixed bottom-14 right-2 md:top-[calc(7.5vh+510px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[900] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block' >
+             
+              <GlucoseMonitor
+                title="GlucoseMonitor"
+                className="bg-white border border-[#808080] m-[2px] overflow-hidden relative h-full flex flex-col" 
+                
+                >
+            
+            <div className="internal-state-box">
+              <div style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '4px', background: '#c0c0c0', padding: '4', borderBottom: '1px solid #808080' }}>INTERNAL STATE</div>
+              <form onSubmit={handleGlucoseSubmit}>
+                  <div style={{ fontSize: '13px', color: '#444' }}>What is your blood sugar level? Answer us</div>
+                  <input style={{background: 'black', color: '#00ff00', width: '95%', fontSize: "1.2rem", padding: "4px", outline:'none', left: '3%'}}
+                      className="retro-input m-[5px]" 
+                      type="number" 
+                      placeholder="000"
+                      value={glucoseLevel}
+                      onChange={(e) => setGlucoseLevel(e.target.value)}
+                  />
+                  <button disabled={pending} className="win95-button m-[5px]" type="submit" style={{padding:'5px',  fontFamily: '"MS Sans Serif", "Tahoma", sans-serif', fontSize: '12'}}> {pending? "Submitting..." : "Log Entry"}</button>
+              </form>
+            
+               <div style={{ marginTop: '10px', fontSize: '10px', fontFamily: 'monospace' }}>
+                    <div style={{ fontWeight: 'bold' }}>RECENT LOGS:</div>
+                    {glucoseHistory.length === 0 ? (
+                        <div style={{ opacity: 0.5 }}>... NO DATA ...</div>
+                    ) : (
+                        glucoseHistory.map((h, i) => (
+                            <div key={i} className="crnt-line">
+                                {h.time}  {h.val} mg/dL
+                            </div>
+                        ))
+                    )}
+                </div>
+              </div>
+
+
+
+          </GlucoseMonitor>
+        </div>
+
+
+
+
+      {/* Winamp - Repositioned for mobile responsiveness */}
+      
+
+      
+        <div className="fixed top-[-5%] left-1/2 translate-x-[500px] z-[1000] pointer-events-auto">
           <WinampWrapper assetBase={ASSET_BASE} />
         </div>
-    </div>
+    
 
       {/* Navlink Window - Repositioned for mobile responsiveness */}
-      <div className="fixed bottom-14 right-2 md:top-[calc(7.5vh+400px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[900] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block">
+      <div className="fixed bottom-14 right-2 md:top-[calc(7.5vh+305px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[20] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block">
         <div className="bg-[#000080] text-white flex items-center justify-between px-1 py-[2px] select-none text-[10px] font-bold">
           <span>advertisements.txt</span>
           <button className="win95-button w-3 h-3 flex items-center justify-center text-[8px] text-black">✕</button>
         </div>
-        <div className="bg-white m-[1px] p-1 flex justify-center items-center h-[145px] md:h-[185px]">
+        <div className="bg-white m-[1px] p-1 flex justify-center items-center h-[145px] md:h-[175px]">
           <iframe 
             width="100%" 
             height="100%" 
@@ -224,7 +312,7 @@ const App: React.FC = () => {
         <Window 
           title="ForestSpirit.exe" 
           onClose={() => toggleWindow('ai')}
-          className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:top-1/4 md:right-20 md:left-auto md:translate-x-0 md:translate-y-0 w-[90vw] md:w-[400px] z-40"
+          className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:top-1/4 md:right-480 md:left-auto md:translate-x-0 md:translate-y-0 w-[90vw] md:w-[400px] z-40"
         >
           <div className="p-4 bg-black text-green-500 font-mono text-xs h-[250px] md:h-[300px] flex flex-col justify-between">
             <div className="overflow-y-auto mb-4 custom-scrollbar">
@@ -281,7 +369,15 @@ const App: React.FC = () => {
            <img src='img/piramidhead3.png'/>
         </div>
       )}
+
+      
     </div>
+    
+
+
+
+
+
   );
 };
 

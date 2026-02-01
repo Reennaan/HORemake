@@ -35,11 +35,8 @@ const WinampWrapper: React.FC<Props> = ({ assetBase }) => {
   }, [assetBase]);
 
   return (
-    <div className="flex flex-col items-start gap-1 md:gap-2 pointer-events-none">
-      <div 
-        ref={containerRef} 
-        className="scale-[0.7] md:scale-90 origin-top-right md:origin-top-left pointer-events-auto"
-      />
+    <div className="fixed top-[26.5vh] right-[24%] z-[50] pointer-events-auto" ref={containerRef}>
+
     </div>
   );
 };

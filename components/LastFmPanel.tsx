@@ -40,13 +40,13 @@ const LastFmPanel: React.FC<Props> = ({ assetBase }) => {
       <h3 className="text-xs font-bold border-b mb-2 flex-shrink-0">Top albums of the week</h3>
       <div className="space-y-2 flex-grow overflow-y-auto no-scrollbar pr-0">
         {loading ? (
-          <div className="text-[10px] animate-pulse">Scanning database...</div>
+          <div className="text-[15px] animate-pulse">Scanning database...</div>
         ) : albums.length > 0 ? (
           albums.map((album, i) => (
             <div 
               key={i} 
               onClick={() => window.open(album.url, '_blank')}
-              className="flex items-center gap-2 text-[.625rem] hover:bg-blue-100 p-1 cursor-pointer relative group"
+              className="flex items-center gap-2 hover:bg-blue-100 p-1 cursor-pointer relative group"
             >
               <div className="relative flex-shrink-0">
                 <img src={album.image} alt={album.name} className="w-10 h-10 win95-border object-cover" />
@@ -59,14 +59,14 @@ const LastFmPanel: React.FC<Props> = ({ assetBase }) => {
                 {album.name.length > 45 ? (
                   React.createElement('marquee', { scrollamount: "2", className: "font-bold block" }, album.name)
                 ) : (
-                  <p className="font-bold truncate">{album.name}</p>
+                  <p className="font-bold truncate text[13px]">{album.name}</p>
                 )}
-                <p className="text-gray-500 truncate">{album.artist}</p>
+                <p className="text-gray-500 truncate text-[12px]">{album.artist}</p>
               </div>
             </div>
           ))
         ) : (
-          <div className="text-[10px]">No recent auditory data.</div>
+          <div className="text-[15px]">No recent auditory data.</div>
         )}
       </div>
     </div>
