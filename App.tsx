@@ -226,7 +226,7 @@ const App: React.FC = () => {
       
 
       {/*GlucoseMonitor*/}
-        <div className='fixed bottom-14 right-2 md:top-[calc(7.5vh+510px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[900] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block' >
+        <div className='fixed right-2 md:top-[calc(7.5vh+510px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[900] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block max-h-700' >
              
               <GlucoseMonitor
                 title="GlucoseMonitor"
