@@ -12,7 +12,7 @@ const VisitorCounter: React.FC = () => {
   useEffect(() => {
     // Simulated visitor counter logic using localStorage
     const lastCount = localStorage.getItem('visitor_count');
-    let currentCount = lastCount ? parseInt(lastCount, 10) : 100432;
+    let currentCount = lastCount ? parseInt(lastCount, 10) : 1318;
     
     // Randomly increment slightly to simulate traffic on refresh
     const increment = Math.floor(Math.random() * 3) + 1;

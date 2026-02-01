@@ -202,10 +202,6 @@ const App: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Decorative Corner Watermark */}
-                    <div className="absolute -bottom-2 -right-2 opacity-5 pointer-events-none rotate-12">
-                      <img src="https://img.icons8.com/color/96/old-computer.png" className="w-24 h-24" alt="Retro Watermark" />
-                    </div>
                   </div>
 
                   <div className="flex-shrink-0 h-[180px]">
