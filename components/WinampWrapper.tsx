@@ -16,7 +16,8 @@ const WinampWrapper: React.FC<Props> = ({ assetBase }) => {
         const webamp = new window.Webamp({
           initialTracks: [{
             metaData: { artist: "Final Fantasy IX", title: "Fairy Battle" },
-            url: import.meta.env.BASE_URL+ "sounds/fairy-battle.mp3"
+            url: import.meta.env.BASE_URL+ "sounds/fairy-battle.mp3",
+            
           }],
           initialSkin: { url: `${assetBase}img/reiayanami_winskin.wsz` }
         });
@@ -31,6 +32,7 @@ const WinampWrapper: React.FC<Props> = ({ assetBase }) => {
 
       }
     };
+    console.log(import.meta.env.BASE_URL);
     initWebamp();
   }, [assetBase]);
 

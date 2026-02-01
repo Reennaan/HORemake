@@ -43,7 +43,7 @@ const StatusPanel: React.FC<Props> = ({ assetBase }) => {
       <div className="flex gap-3 items-start border-b-2 border-dotted border-gray-400 pb-3">
         <div className="w-14 h-14 win95-border bg-black p-[2px] flex-shrink-0 group overflow-hidden relative">
           <img 
-            src="./img/me.jpg" 
+            src={import.meta.env.BASE_URL+ "/img/me.jpg"} 
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             alt="User Avatar"
           />
@@ -57,8 +57,8 @@ const StatusPanel: React.FC<Props> = ({ assetBase }) => {
             <span className="w-2 h-2 bg-yellow-500 rounded-full border border-gray-400"></span>
             <span className="w-2 h-2 bg-blue-500 rounded-full border border-gray-400"></span>
           </div>
-          <div className=''>
-              <img className="fixed w-1/5 h-1/5 object-cover items-center justify-center right-[50%] top-[16%] p-[40px] select-none" src={ import.meta.env.BASE_URL + "img/noodles.gif" }/>
+          <div className='flex justify-end -mt-12'>
+              <img className="w-1/2 h-1/2  select-none" src={ import.meta.env.BASE_URL + "img/noodles.gif" }/>
           </div>
           
 
