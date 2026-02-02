@@ -13,7 +13,7 @@ const GlucoseMonitor: React.FC<Props> = ({ title, children, className }) => {
       {/* Title Bar */}
       <div className="bg-[#000080] text-white flex items-center justify-between px-2 py-[2px] md:py-[3px] select-none flex-shrink-0">
         <span className="text-[10px] md:text-xs font-bold flex items-center gap-1 md:gap-2 truncate">
-          <img src="https://img.icons8.com/color/16/folder-invoices.png" alt="icon" className="w-3 h-3 md:w-4 md:h-4" />
+          <img src={import.meta.env.BASE_URL+"img/health-medicine-pills22.gif"} alt="icon" className="w-4 h-4 md:w-5 md:h-5" />
           <span className="truncate">{title}</span>
         </span>
         <div className="flex gap-1 flex-shrink-0">
