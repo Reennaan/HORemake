@@ -16,7 +16,6 @@ const DoomPlayer: React.FC = () => {
           isInitialized.current = true;
           
           // @ts-ignore
-          // Usamos a versão 7.xx do js-dos
           const ci = await window.Dos(containerRef.current).run("./public/doom.zip");
           dosInstance.current = ci;
 
@@ -29,17 +28,17 @@ const DoomPlayer: React.FC = () => {
           }
         } catch (e) {
           console.error("Erro ao iniciar o Doom:", e);
-          isInitialized.current = false; // Permite tentar de novo se falhar
+          isInitialized.current = false; 
         }
       }
     };
 
-    // Pequeno delay para garantir que a janela do 'HORemake' terminou de renderizar
+    //delay
     const timeoutId = setTimeout(startDoom, 800);
 
     return () => {
       clearTimeout(timeoutId);
-      // Cleanup: mata o emulador ao fechar a janela para liberar memória
+      // Cleanup
       if (dosInstance.current) {
         dosInstance.current.exit();
         dosInstance.current = null;

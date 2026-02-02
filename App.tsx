@@ -11,14 +11,15 @@ import WinampWrapper from './components/WinampWrapper';
 import DoomPlayer from './components/DoomPlayer';
 import { GoogleGenAI } from "@google/genai";
 import { useFormStatus } from "react-dom";
+import ChatView from './components/ChatView';
+import AblyChat from "./components/AblyChat";
+
 
 const ASSET_BASE = "https://raw.githubusercontent.com/Reennaan/unknown/aa343befc725f6feef2a013e7cdfbf4b8f4d69e1/";
 
 const Typewriter: React.FC<{ text: string; delay: number }> = ({ text, delay }) => {
 const [currentText, setCurrentText] = useState('');
 const [currentIndex, setCurrentIndex] = useState(0);
-
-
 
 
 
@@ -35,6 +36,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
 
   return <>{currentText}</>;
 };
+
 
 
 
@@ -114,6 +116,7 @@ const App: React.FC = () => {
       });
       setAiResponse(response.text || "The signal is lost in the thicket...");
     } catch (err) {
+      console.log(err)
       setAiResponse("ERROR: SPIRIT_LINK_BROKEN. The signal is weak.");
     } finally {
       setLoadingAi(false);
@@ -169,7 +172,7 @@ const App: React.FC = () => {
                 <img src={`${ASSET_BASE}img/titlebackgroud.gif`} className="absolute inset-0 w-full h-full object-cover opacity-80" />
                 <div className="relative flex items-center gap-2 md:gap-4 z-10 text-center">
                    <img src={`${ASSET_BASE}img/smileds1.gif`} className="w-6 h-6 md:w-8 md:h-8" />
-                   <h1 className="text-3xl md:text-5xl font-bold glitch-text text-green-400" style={{fontFamily: 'WildBreathOfZelda', textShadow: '2px 2px #000'}}>hiddenwoods.zip</h1>
+                   <h1 className="text-3xl md:text-5xl font-bold glitch-text text-green-400" style={{textShadow: '2px 2px #000'}}>hiddenwoods.zip</h1>
                    <img src={`${ASSET_BASE}img/smileds1.gif`} className="w-6 h-6 md:w-8 md:h-8" />
                 </div>
              </div>
@@ -309,6 +312,11 @@ const App: React.FC = () => {
           <DoomPlayer />
         </Window>
       )}
+
+      {/*Call Chat*/}
+      <AblyChat />
+      
+      
 
       {/* AI Spirit Window - Responsive sizing */}
       {windows.ai && (
