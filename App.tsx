@@ -277,9 +277,6 @@ const App: React.FC = () => {
 
 
       {/* Winamp - Repositioned for mobile responsiveness */}
-      
-
-      
         <div className="fixed top-[-5%] left-1/2 translate-x-[500px] z-[1000] pointer-events-auto">
           <WinampWrapper assetBase={ASSET_BASE} />
         </div>
