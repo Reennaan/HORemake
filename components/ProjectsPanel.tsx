@@ -3,6 +3,8 @@ import React from 'react';
 import { Project } from '../types';
 
 const projects: Project[] = [
+  { date: '2026/02/06', name: 'Soul Extractor', status: 'Done', url: '' },
+  { date: '2026/01/31', name: 'HORemake', status: 'Done', url: 'https://github.com/Reennaan/HORemake' },
   { date: '2025/09/21', name: 'HiddenHiddenThoughts', status: 'Done', url: 'https://hiddenwoods.neocities.org/blog' },
   { date: '2025/09/07', name: 'TitanicKaggle', status: 'Done', url: 'https://github.com/Reennaan/Titanic_desafio' },
   { date: '2025/08/14', name: 'ExperimentZero', status: 'Done', url: 'https://github.com/Reennaan/ExperimentZero' },
