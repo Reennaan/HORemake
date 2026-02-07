@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import RetroOverlay from './components/RetroOverlay';
 import DesktopIcon from './components/DesktopIcon';
-import Window from './components/Window';
+import Window, {eyes} from './components/Window';
 import GlucoseMonitor from './components/GlucoseMonitor';
 import StatusPanel from './components/StatusPanel';
 import ProjectsPanel from './components/ProjectsPanel';
@@ -12,7 +12,8 @@ import DoomPlayer from './components/DoomPlayer';
 import { GoogleGenAI } from "@google/genai";
 import { useFormStatus } from "react-dom";
 import ChatView from './components/ChatView';
-import AblyChat from "./components/AblyChat";
+
+
 
 
 const ASSET_BASE = "https://raw.githubusercontent.com/Reennaan/unknown/aa343befc725f6feef2a013e7cdfbf4b8f4d69e1/";
@@ -45,6 +46,7 @@ const App: React.FC = () => {
     main: true,
     doom: false,
     ai: false,
+    chat: false
   });
   const [isSaved, setIsSaved] = useState(false);
   const [aiResponse, setAiResponse] = useState("Greetings, traveler... I am the spirit of the woods. Ask me anything.");
@@ -111,7 +113,7 @@ const App: React.FC = () => {
         model: 'gemini-3-flash-preview',
         contents: prompt,
         config: {
-          systemInstruction: "You are a cryptic but helpful 90s-style digital forest spirit living in a .zip file. Your speech is glitchy, poetic, and retro. Use short sentences.",
+          systemInstruction: "Greetings",
         }
       });
       setAiResponse(response.text || "The signal is lost in the thicket...");
@@ -143,12 +145,12 @@ const App: React.FC = () => {
         />
         <DesktopIcon 
           name="ForestSpirit.lnk" 
-          iconUrl="https://img.icons8.com/color/48/ghost.png" 
+          iconUrl={import.meta.env.BASE_URL+"img/spirit.png"} 
           onDoubleClick={() => toggleWindow('ai')} 
         />
         <DesktopIcon 
           name="MyComputer" 
-          iconUrl="https://img.icons8.com/color/48/monitor--v1.png" 
+          iconUrl={import.meta.env.BASE_URL+"img/computer95.png"}
           onDoubleClick={() => toggleWindow('main')} 
         />
         <DesktopIcon
@@ -157,14 +159,25 @@ const App: React.FC = () => {
           onDoubleClick={() => window.location.assign("https://hiddenwoods.neocities.org/blog")}
         
         />
+        <DesktopIcon
+          name="Messenger"
+          iconUrl={import.meta.env.BASE_URL+"img/msn.png"}
+          onDoubleClick={() => toggleWindow('chat')} 
+        />
 
       </div>
 
-      {/* Main Window - Centered on screen, responsive width */}
+      {/* Main Window */}
       {windows.main && (
         <Window 
           title="hiddenwoods.zip" 
-          onClose={() => toggleWindow('main')}
+          onClose={() =>{
+            toggleWindow('main')
+            eyes()
+             
+          } 
+          
+          }
           className="top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] sm:w-[85vw] md:w-[700px] z-20 h-[90vh] md:h-[90vh] max-h-[1200px]"
         >
           <div className="p-2 md:p-4 bg-[#f5eee4] h-full overflow-y-auto custom-scrollbar flex flex-col gap-4">
@@ -310,9 +323,20 @@ const App: React.FC = () => {
         </Window>
       )}
 
-      {/*Call Chat*/}
-      <AblyChat />
+ 
       
+      {/*hiddenchat*/}
+      {windows.chat && (
+        <Window
+          title='HiddenChat.exe'
+          onClose={() => toggleWindow('chat')}
+          className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] md:w-[545px] h-[60vh] md:h-[310px] z-[1001]"
+        >
+        <ChatView/>
+
+        </Window>
+      )}
+
       
 
       {/* AI Spirit Window - Responsive sizing */}

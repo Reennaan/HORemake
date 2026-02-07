@@ -13,7 +13,7 @@ interface Props {
 var cont = -1;
 let strangeActive = false;
 const baseurl: string = import.meta.env.BASE_URL;
-function eyes() {
+export function eyes() {
     cont++;
   if (cont === 0) {
     
@@ -289,7 +289,7 @@ const Window: React.FC<Props> = ({ title, onClose, children, className }) => {
           <button 
             onClick={() =>{
               onClose()
-              eyes()
+              
             } 
               
             }
