@@ -51,6 +51,7 @@ const App: React.FC = () => {
   const [isSaved, setIsSaved] = useState(false);
   const [aiResponse, setAiResponse] = useState("Greetings, traveler... I am the spirit of the woods. Ask me anything.");
   const [loadingAi, setLoadingAi] = useState(false);
+  const [showMobileWarning, setShowMobileWarning] = useState(false);
 
   useEffect(() => {
     const handler = (event: Event) => {
@@ -62,6 +63,24 @@ const App: React.FC = () => {
     window.addEventListener("forestspirit-open", handler);
     return () => {
       window.removeEventListener("forestspirit-open", handler);
+    };
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setShowMobileWarning(media.matches);
+    update();
+    if (media.addEventListener) {
+      media.addEventListener("change", update);
+    } else {
+      media.addListener(update);
+    }
+    return () => {
+      if (media.removeEventListener) {
+        media.removeEventListener("change", update);
+      } else {
+        media.removeListener(update);
+      }
     };
   }, []);
 
@@ -148,6 +167,28 @@ const App: React.FC = () => {
       />
 
       <RetroOverlay />
+
+      {showMobileWarning && (
+        <div className="fixed inset-0 z-[20000] flex items-center justify-center bg-black/70">
+          <Window
+            title="Warning"
+            onClose={() => setShowMobileWarning(false)}
+            className="w-[90vw] max-w-[420px]"
+          >
+            <div className="p-4 text-[12px] md:text-sm font-mono">
+              you will not be able to enjoy the site on a cell phone. please destroy it and buy a PC
+            </div>
+            <div className="px-4 pb-4 flex justify-end">
+              <button
+                className="win95-button px-4 py-1 text-[10px] md:text-xs font-bold"
+                onClick={() => setShowMobileWarning(false)}
+              >
+                OK
+              </button>
+            </div>
+          </Window>
+        </div>
+      )}
 
       {/* Desktop Icons - responsive grid */}
       <div className="absolute top-4 left-4 flex flex-col md:flex-row md:top-auto md:bottom-16 md:left-4 gap-4 md:gap-6 z-10">
