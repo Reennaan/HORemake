@@ -52,6 +52,19 @@ const App: React.FC = () => {
   const [aiResponse, setAiResponse] = useState("Greetings, traveler... I am the spirit of the woods. Ask me anything.");
   const [loadingAi, setLoadingAi] = useState(false);
 
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const custom = event as CustomEvent<{ message: string }>;
+      if (!custom.detail?.message) return;
+      setAiResponse(custom.detail.message);
+      setWindows(prev => ({ ...prev, ai: true }));
+    };
+    window.addEventListener("forestspirit-open", handler);
+    return () => {
+      window.removeEventListener("forestspirit-open", handler);
+    };
+  }, []);
+
   const toggleWindow = (key: keyof typeof windows) => {
     setWindows(prev => ({ ...prev, [key]: !prev[key] }));
   };
@@ -379,6 +392,7 @@ const App: React.FC = () => {
            {windows.main && <div className="win95-button px-2 md:px-4 flex items-center text-[10px] md:text-xs truncate max-w-[80px] md:max-w-[120px] font-bold">hiddenwoods</div>}
            {windows.doom && <div className="win95-button px-2 md:px-4 flex items-center text-[10px] md:text-xs truncate max-w-[80px] md:max-w-[120px] font-bold bg-[#dfdfdf]">Doom.exe</div>}
            {windows.ai && <div className="win95-button px-2 md:px-4 flex items-center text-[10px] md:text-xs truncate max-w-[80px] md:max-w-[120px] font-bold">ForestSpirit</div>}
+           {windows.chat && <div className="win95-button px-2 md:px-4 flex items-center text-[10px] md:text-xs truncate max-w-[80px] md:max-w-[120px] font-bold">hiddenchat</div>}
         </div>
         <img src={`${ASSET_BASE}img/worldwideweb_badge.gif`} className="h-6 md:h-8 mx-2 md:mx-4 hidden xs:block" alt="Badge" />
         <div className="win95-border px-2 md:px-4 py-1 text-[10px] md:text-xs font-bold flex items-center bg-[#c0c0c0] inset-shadow ml-auto">
@@ -397,7 +411,7 @@ const App: React.FC = () => {
 
       {/* Snackbar */}
       {isSaved && (
-        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-0 z-[10001] animate-pulse">
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-0 z-[10001]">
            <img src='./img/piramidhead3.png'/>
         </div>
       )}

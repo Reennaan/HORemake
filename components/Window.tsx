@@ -71,26 +71,51 @@ export function eyes() {
     }, 3000);
     
   }
-  console.log(cont)
+  
   const hole = document.createElement("img")
+  const phcontainer = document.createElement("div")
+  phcontainer.className = "fixed bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-0 z-[10001]"
+  const pht = document.createElement("img")
+  pht.className = "w-full h-full pointer-events-none"
+  const puru = new Audio(baseurl+"/sounds/puru.mp3")
+  
    
     if(cont === 1){
       hole.src = baseurl + "img/hole2.png";
       hole.className = "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 z-2 pointer-events-none";
-      console.log(cont)
+      pht.src = baseurl+"img/piramidhead7.png"
     
     }
     if(cont === 2){
       hole.src = baseurl + "img/hole2.png";
       hole.className = "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-35 h-35 z-2 max-w-[400px] max-h-[400px] pointer-events-none";
+      pht.src = baseurl+"img/piramidhead4.png";
+      window.dispatchEvent(new CustomEvent("forestspirit-open", {
+        detail: { message: "you'd better listen to the giant eye and that red piramid thing, dude." }
+      }));
       
     }
       if(cont === 3){
       hole.src = baseurl + "img/hole2.png";
       hole.className = "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-35 h-35 z-2 max-w-[900px] max-h-[900px] pointer-events-none";
+      pht.src = baseurl+"img/piramidhead6.png";
+      window.dispatchEvent(new CustomEvent("forestspirit-open", {
+        detail: { message: "shame on you" }
+      }));
       somethingStrange();
     }
-    
+    if (pht.src) {
+      phcontainer.appendChild(pht)
+      document.body.appendChild(phcontainer);
+      if(cont < 3){
+        puru.play()
+      }
+      setTimeout(() => {
+        if (document.body.contains(phcontainer)) {
+          document.body.removeChild(phcontainer);
+        }
+      }, 3000);
+    }
     document.body.appendChild(hole);
     
   
