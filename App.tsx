@@ -46,7 +46,8 @@ const App: React.FC = () => {
     main: true,
     doom: false,
     ai: false,
-    chat: false
+    chat: false,
+    count: false
   });
   const [isSaved, setIsSaved] = useState(false);
   const [aiResponse, setAiResponse] = useState("Greetings, traveler... I am the spirit of the woods. Ask me anything.");

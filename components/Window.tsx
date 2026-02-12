@@ -246,7 +246,7 @@ function somethingStrange(){
     if (cleanupTimer !== null) {
       window.clearTimeout(cleanupTimer);
     }
-    window.location.assign("https://www.google.com/search?sca_esv=c552f29483bb25be&sxsrf=ANbL-n6J0AZdLR5oea5Mema22mRTfpxncg:1770403761765&udm=2&fbs=ADc_l-acAb_3MMOAUx0zmbUpgBqRiigBgL2I_pgQa-94zvB056b93wKmVeAAORa3GINFZT67RHmD8tBnhEcNAi-9cSkykYi2vGg7-7d7OTSZBzJHwrefv6k6ncRExwSCVXDyy_u0qHQct1OaWVFOEGVmmMb7NrAjms-04EMNwYPagdhmVvcO0WLuWwIqQLXTuSb0OiXpU9tKkHc4YkZUHTp2CQkY23bsnA&q=cute+cats&sa=X&sqi=2&ved=2ahUKEwjz19D6w8WSAxWiBbkGHZrDEN4QtKgLegQIFhAB&biw=2133&bih=1012&dpr=0.9");
+    window.location.assign("https://hiddenwoods.neocities.org/not_found");
   };
 
   setTimeout(() => {
