@@ -8,7 +8,7 @@ import StatusPanel from './components/StatusPanel';
 import ProjectsPanel from './components/ProjectsPanel';
 import LastFmPanel from './components/LastFmPanel';
 import WinampWrapper from './components/WinampWrapper';
-import DoomPlayer from './components/DoomPlayer';
+import DoomPlayer, { stopDoom } from './components/DoomPlayer';
 import { GoogleGenAI } from "@google/genai";
 import { useFormStatus } from "react-dom";
 import ChatView from './components/ChatView';
@@ -53,6 +53,7 @@ const App: React.FC = () => {
   const [aiResponse, setAiResponse] = useState("Greetings, traveler... I am the spirit of the woods. Ask me anything.");
   const [loadingAi, setLoadingAi] = useState(false);
   const [showMobileWarning, setShowMobileWarning] = useState(false);
+  const [doomVersion, setDoomVersion] = useState(0);
 
   useEffect(() => {
     const handler = (event: Event) => {
@@ -371,10 +372,14 @@ const App: React.FC = () => {
       {windows.doom && (
         <Window 
           title="Doom.exe" 
-          onClose={() => toggleWindow('doom')}
+          onClose={() => {
+            stopDoom();
+            setDoomVersion(v => v + 1);
+            toggleWindow('doom');
+          }}
           className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] md:w-[645px] h-[60vh] md:h-[480px] z-[1001]"
         >
-          <DoomPlayer />
+          <DoomPlayer key={doomVersion} />
         </Window>
       )}
 
@@ -470,3 +475,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+
