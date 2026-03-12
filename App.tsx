@@ -161,7 +161,7 @@ const App: React.FC = () => {
 
   return (
     <div className="relative w-screen h-screen bg-black overflow-hidden select-none flex flex-col">
-      {/* Background */}
+     
       <img 
         src={`${ASSET_BASE}img/background.gif`} 
         className="absolute inset-0 w-full h-full object-cover z-0 no-select select-none" 
@@ -193,7 +193,7 @@ const App: React.FC = () => {
       )}
 
       {/* Desktop Icons - responsive grid */}
-      <div className="absolute top-4 left-4 flex flex-col md:flex-row md:top-auto md:bottom-16 md:left-4 gap-4 md:gap-6 z-10">
+      <div className="absolute top-4 left-4 flex flex-col md:flex-row md:top-auto md:bottom-16 md:left-3 gap-3 md:gap-4 z-10">
         <DesktopIcon 
           name="Doom.exe" 
           iconUrl={`${ASSET_BASE}img/doomicon.png`} 
@@ -220,13 +220,19 @@ const App: React.FC = () => {
           iconUrl={import.meta.env.BASE_URL+"img/msn.png"}
           onDoubleClick={() => toggleWindow('chat')} 
         />
+        <DesktopIcon
+          name="Mango"
+          iconUrl={import.meta.env.BASE_URL+"img/icon.jpg"}
+          onDoubleClick={() => window.location.assign("https://github.com/Reennaan/Mango2/releases/tag/v1.0.0")} 
+        />
+        
 
       </div>
 
       {/* Main Window */}
       {windows.main && (
         <Window 
-          title="hiddenwoods.zip" 
+          title="MainPage do not close" 
           onClose={() =>{
             toggleWindow('main')
             eyes()
@@ -249,13 +255,13 @@ const App: React.FC = () => {
              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-shrink-0">
                 <StatusPanel assetBase={ASSET_BASE} />
                 <div className="flex flex-col gap-4">
-                  {/* Enhanced Greeting Area */}
+                  
                   <div className="win95-border p-4 bg-[#fffef0] relative overflow-hidden flex-shrink-0 min-h-[220px] flex flex-col">
                     <div className="absolute top-0 left-0 w-full h-1 bg-blue-600 opacity-30"></div>
                     <div className="flex justify-between items-start mb-3 border-b border-gray-300 pb-1">
                       <div className="flex flex-col">
                         <p className="text-[10px] font-black uppercase text-gray-400 leading-none mb-1">Incoming Transmission</p>
-                        <p className="text-[11px] font-bold text-gray-800">From: Shalashaska-</p>
+                        <p className="text-[11px] font-bold text-gray-800">From: Renan-</p>
                       </div>
                       <img src="https://img.icons8.com/color/16/verified-badge.png" className="w-4 h-4 opacity-70" alt="Verified" />
                     </div>
@@ -301,7 +307,7 @@ const App: React.FC = () => {
       
 
       {/*GlucoseMonitor*/}
-        <div className='fixed right-2 md:top-[calc(7.5vh+510px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[900] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block max-h-700' >
+        <div className='fixed right-2 md:top-[calc(7.5vh+535px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[900] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block max-h-700 md:h-[15.3125rem]'  >
              
               <GlucoseMonitor
                 title="GlucoseMonitor"
@@ -355,9 +361,13 @@ const App: React.FC = () => {
       <div className="fixed bottom-14 right-2 md:top-[calc(7.5vh+305px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[20] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block">
         <div className="bg-[#000080] text-white flex items-center justify-between px-1 py-[2px] select-none text-[10px] font-bold">
           <span>advertisements.txt</span>
-          <button className="win95-button w-3 h-3 flex items-center justify-center text-[8px] text-black">✕</button>
+          <button   
+            className="win95-button w-3 h-3 md:w-4 md:h-4 flex items-center justify-center text-[8px] md:text-[10px] text-black font-black hover:bg-red-500"
+          >
+            ✕
+          </button>
         </div>
-        <div className="bg-white m-[1px] p-1 flex justify-center items-center h-[145px] md:h-[175px]">
+        <div className="bg-white m-[1px] p-1 flex justify-center items-center h-[180px] md:h-[200px]">
           <iframe 
             width="100%" 
             height="100%" 

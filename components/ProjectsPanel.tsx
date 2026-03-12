@@ -3,6 +3,7 @@ import React from 'react';
 import { Project } from '../types';
 
 const projects: Project[] = [
+  { date: '2026/03/11', name: 'Mango1.0.0 Release', status: 'Done', url: 'https://github.com/Reennaan/Mango2/releases/tag/v1.0.0' },
   { date: '2026/02/06', name: 'Soul Extractor', status: 'Done', url: '' },
   { date: '2026/01/31', name: 'HORemake', status: 'Done', url: 'https://github.com/Reennaan/HORemake' },
   { date: '2025/09/21', name: 'HiddenHiddenThoughts', status: 'Done', url: 'https://hiddenwoods.neocities.org/blog' },

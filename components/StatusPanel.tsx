@@ -50,7 +50,7 @@ const StatusPanel: React.FC<Props> = ({ assetBase }) => {
           <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border border-white rounded-full animate-pulse shadow-sm"></div>
         </div>
         <div className="flex flex-col">
-          <h2 className="text-[14px] font-black leading-none text-blue-900 mb-1">Shalashaska-</h2>
+          <h2 className="text-[14px] font-black leading-none text-blue-900 mb-1">Renan</h2>
           <p className="text-[9px] font-mono text-gray-500 leading-tight">LV. 99 JAVA MAGE</p>
           <div className="flex gap-1 mt-1">
             <span className="w-2 h-2 bg-red-500 rounded-full border border-gray-400"></span>
@@ -126,11 +126,11 @@ const StatusPanel: React.FC<Props> = ({ assetBase }) => {
         <div className="space-y-2">
           <div className="flex flex-col gap-[2px]">
             <span className="text-[15px] font-bold text-blue-900 leading-none">Reading</span>
-            <span className="text-[15px] text-gray-700 bg-white/50 px-1 border-l-2 border-green-400">Meridiano de Sangue</span>
+            <span className="text-[15px] text-gray-700 bg-white/50 px-1 border-l-2 border-green-400">The Sign of the Four</span>
           </div>
           <div className="flex flex-col gap-[2px]">
             <span className="text-[15px] font-bold text-green-900 leading-none">Playing</span>
-            <span className="text-[15px] text-gray-700 bg-white/50 px-1 border-l-2 border-green-400">25 Awards Silver Case</span>
+            <span className="text-[15px] text-gray-700 bg-white/50 px-1 border-l-2 border-green-400">Judgment</span>
           </div>
           <div className="pt-2 mt-1 border-t border-gray-300">
              <div className="flex items-center justify-between text-[10px] font-black">
