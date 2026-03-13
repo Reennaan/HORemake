@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 
 interface Props {
@@ -7,6 +7,7 @@ interface Props {
   
   children: React.ReactNode;
   className?: string;
+  draggable?: boolean;
 }
 
 
@@ -299,11 +300,108 @@ typewriterEffect();
 }
 
 
-const Window: React.FC<Props> = ({ title, onClose, children, className }) => {
+const Window: React.FC<Props> = ({ title, onClose, children, className, draggable = true }) => {
+  const windowRef = useRef<HTMLDivElement | null>(null);
+  const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const positionRef = useRef<{ x: number; y: number } | null>(null);
+  const dragStateRef = useRef({
+    pointerId: null as number | null,
+    startX: 0,
+    startY: 0,
+    originX: 0,
+    originY: 0,
+  });
+
+  useEffect(() => {
+    positionRef.current = position;
+  }, [position]);
+
+  useEffect(() => {
+    if (!isDragging) {
+      return;
+    }
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const dragState = dragStateRef.current;
+      if (dragState.pointerId === null || event.pointerId !== dragState.pointerId) {
+        return;
+      }
+      const dx = event.clientX - dragState.startX;
+      const dy = event.clientY - dragState.startY;
+      const nextPosition = {
+        x: dragState.originX + dx,
+        y: dragState.originY + dy,
+      };
+      positionRef.current = nextPosition;
+      setPosition(nextPosition);
+    };
+
+    const handlePointerUp = (event: PointerEvent) => {
+      const dragState = dragStateRef.current;
+      if (dragState.pointerId === null || event.pointerId !== dragState.pointerId) {
+        return;
+      }
+      dragState.pointerId = null;
+      setIsDragging(false);
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', handlePointerUp);
+    window.addEventListener('pointercancel', handlePointerUp);
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('pointercancel', handlePointerUp);
+    };
+  }, [isDragging]);
+
+  const startDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggable || event.button !== 0) {
+      return;
+    }
+
+    const target = event.target as HTMLElement;
+    if (target.closest('button')) {
+      return;
+    }
+
+    const node = windowRef.current;
+    if (!node) {
+      return;
+    }
+
+    const rect = node.getBoundingClientRect();
+    const origin = positionRef.current ?? { x: rect.left, y: rect.top };
+    dragStateRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: origin.x,
+      originY: origin.y,
+    };
+    positionRef.current = origin;
+    setPosition(origin);
+    setIsDragging(true);
+    event.preventDefault();
+  };
+
+  const windowStyle = position
+    ? { left: position.x, top: position.y, transform: 'translate3d(0, 0, 0)' }
+    : undefined;
+
   return (
-    <div className={`fixed win95-border bg-[#c0c0c0] flex flex-col p-[2px] shadow-2xl overflow-hidden ${className}`}>
-      {/* Title Bar */}
-      <div className="bg-[#000080] text-white flex items-center justify-between px-2 py-[2px] md:py-[3px] select-none flex-shrink-0">
+    <div
+      ref={windowRef}
+      style={windowStyle}
+      className={`fixed win95-border bg-[#c0c0c0] flex flex-col p-[2px] shadow-2xl overflow-hidden draggable ${className}`}
+    >
+      
+      <div
+        className={`bg-[#000080] text-white flex items-center justify-between px-2 py-[2px] md:py-[3px] select-none flex-shrink-0 ${draggable ? 'touch-none' : ''}`}
+        onPointerDown={startDrag}
+      >
         <span className="text-[10px] md:text-xs font-bold flex items-center gap-1 md:gap-2 truncate">
           <img src="https://img.icons8.com/color/16/folder-invoices.png" alt="icon" className="w-3 h-3 md:w-4 md:h-4" />
           <span className="truncate">{title}</span>

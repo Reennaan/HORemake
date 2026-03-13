@@ -17,12 +17,21 @@ const projects: Project[] = [
 ];
 
 const ProjectsPanel: React.FC = () => {
+  const openExternal = (url: string) => {
+    if (!url) return;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className="win95-border p-4 bg-white">
       <h3 className="text-sm font-bold border-b mb-2">Summary.txt</h3>
       <div className="space-y-1 font-mono text-[11px] h-32 overflow-y-auto bg-gray-50 p-2 border inset-shadow">
         {projects.map((p, i) => (
-          <div key={i} className="flex justify-between hover:bg-blue-800 hover:text-white group cursor-pointer px-1">
+          <div
+            key={i}
+            className="flex justify-between hover:bg-blue-800 hover:text-white group cursor-pointer px-1"
+            onClick={() => openExternal(p.url)}
+          >
             <span>[{p.date}] <span className="group-hover:underline">{p.name}</span></span>
             <span className={p.status === 'Down' ? 'text-red-600 group-hover:text-red-200' : 'text-green-600 group-hover:text-green-200'}>[{p.status}]</span>
           </div>

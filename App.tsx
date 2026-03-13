@@ -54,6 +54,7 @@ const App: React.FC = () => {
   const [loadingAi, setLoadingAi] = useState(false);
   const [showMobileWarning, setShowMobileWarning] = useState(false);
   const [doomVersion, setDoomVersion] = useState(0);
+  const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
 
   useEffect(() => {
     const handler = (event: Event) => {
@@ -159,8 +160,15 @@ const App: React.FC = () => {
     }
   };
 
+  const openExternal = (url: string) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
-    <div className="relative w-screen h-screen bg-black overflow-hidden select-none flex flex-col">
+    <div
+      className="relative w-screen h-screen bg-black overflow-hidden select-none flex flex-col"
+      onClick={() => setSelectedIcon(null)}
+    >
      
       <img 
         src={`${ASSET_BASE}img/background.gif`} 
@@ -192,47 +200,62 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Desktop Icons - responsive grid */}
-      <div className="absolute top-4 left-4 flex flex-col md:flex-row md:top-auto md:bottom-16 md:left-3 gap-3 md:gap-4 z-10">
+      
+    
+      <div className="absolute top-4 left-4 flex flex-col flex-wrap gap-3 md:gap-4 z-10">
+
         <DesktopIcon 
           name="Doom.exe" 
           iconUrl={`${ASSET_BASE}img/doomicon.png`} 
           onDoubleClick={() => toggleWindow('doom')} 
+          selected={selectedIcon === "Doom.exe"}
+          onSelect={() => setSelectedIcon("Doom.exe")}
         />
         <DesktopIcon 
           name="ForestSpirit.lnk" 
           iconUrl={import.meta.env.BASE_URL+"img/spirit.png"} 
-          onDoubleClick={() => toggleWindow('ai')} 
+          onDoubleClick={() => toggleWindow('ai')}
+          selected={selectedIcon === "ForestSpirit.lnk"}
+          onSelect={() => setSelectedIcon("ForestSpirit.lnk")} 
         />
         <DesktopIcon 
           name="MyComputer" 
           iconUrl={import.meta.env.BASE_URL+"img/computer95.png"}
-          onDoubleClick={() => toggleWindow('main')} 
+          onDoubleClick={() => toggleWindow('main')}
+          selected={selectedIcon === "MyComputer"}
+          onSelect={() => setSelectedIcon("MyComputer")} 
         />
         <DesktopIcon
           name="Thoughs"
           iconUrl={import.meta.env.BASE_URL+"img/hipnose.ico"}
-          onDoubleClick={() => window.location.assign("https://hiddenwoods.neocities.org/blog")}
+          onDoubleClick={() => openExternal("https://hiddenwoods.neocities.org/blog")}
+          selected={selectedIcon === "Thoughs"}
+          onSelect={() => setSelectedIcon("Thoughs")}
         
         />
         <DesktopIcon
           name="Messenger"
           iconUrl={import.meta.env.BASE_URL+"img/msn.png"}
-          onDoubleClick={() => toggleWindow('chat')} 
+          onDoubleClick={() => toggleWindow('chat')}
+          selected={selectedIcon === "Messenger"}
+          onSelect={() => setSelectedIcon("Messenger")} 
         />
         <DesktopIcon
           name="Mango"
           iconUrl={import.meta.env.BASE_URL+"img/icon.jpg"}
-          onDoubleClick={() => window.location.assign("https://github.com/Reennaan/Mango2/releases/tag/v1.0.0")} 
+          onDoubleClick={() => openExternal("https://github.com/Reennaan/Mango2/releases/tag/v1.0.0")}
+          selected={selectedIcon === "Mango"}
+          onSelect={() => setSelectedIcon("Mango")}
         />
         
 
       </div>
 
-      {/* Main Window */}
+      
       {windows.main && (
         <Window 
           title="MainPage do not close" 
+          draggable={false}
           onClose={() =>{
             toggleWindow('main')
             eyes()
@@ -306,7 +329,7 @@ const App: React.FC = () => {
 
       
 
-      {/*GlucoseMonitor*/}
+      
         <div className='fixed right-2 md:top-[calc(7.5vh+535px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[900] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block max-h-700 md:h-[15.3125rem]'  >
              
               <GlucoseMonitor
@@ -351,13 +374,13 @@ const App: React.FC = () => {
 
 
 
-      {/* Winamp - Repositioned for mobile responsiveness */}
+     
         <div className="fixed top-[-5%] left-1/2 translate-x-[500px] z-[1000] pointer-events-auto">
           <WinampWrapper assetBase={ASSET_BASE} />
         </div>
     
 
-      {/* Navlink Window - Repositioned for mobile responsiveness */}
+      
       <div className="fixed bottom-14 right-2 md:top-[calc(7.5vh+305px)] md:left-[calc(50%+22.6975rem)] md:bottom-auto z-[20] win95-border bg-[#c0c0c0] w-[10rem] md:w-[17.3125rem] p-[.125rem] shadow-lg hidden sm:block">
         <div className="bg-[#000080] text-white flex items-center justify-between px-1 py-[2px] select-none text-[10px] font-bold">
           <span>advertisements.txt</span>
@@ -378,7 +401,7 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* DOOM Window - Responsive sizing */}
+    
       {windows.doom && (
         <Window 
           title="Doom.exe" 
@@ -395,7 +418,7 @@ const App: React.FC = () => {
 
  
       
-      {/*hiddenchat*/}
+     
       {windows.chat && (
         <Window
           title='HiddenChat.exe'
@@ -409,7 +432,7 @@ const App: React.FC = () => {
 
       
 
-      {/* AI Spirit Window - Responsive sizing */}
+     
       {windows.ai && (
         <Window 
           title="ForestSpirit.exe" 
@@ -439,7 +462,7 @@ const App: React.FC = () => {
         </Window>
       )}
 
-      {/* Taskbar - Always at bottom */}
+      
       <div className="fixed bottom-0 w-full h-10 bg-[#c0c0c0] win95-border border-t-2 flex items-center px-2 z-50">
         <button className="win95-button flex items-center gap-1 px-2 md:px-3 py-1 font-bold text-xs md:text-sm mr-2">
           <img src="https://img.icons8.com/color/24/windows-logo.png" className="w-3 h-3 md:w-4 md:h-4" alt="Start" />
