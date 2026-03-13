@@ -1,0 +1,8 @@
+
+{
+  "name": "hiddenwoods.zip",
+  "description": "",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
