@@ -243,7 +243,7 @@ const App: React.FC = () => {
         <DesktopIcon
           name="Mango"
           iconUrl={import.meta.env.BASE_URL+"img/icon.jpg"}
-          onDoubleClick={() => openExternal("https://github.com/Reennaan/Mango./releases/tag/1.0.0")}
+          onDoubleClick={() => openExternal("https://github.com/Reennaan/Mango./releases/tag/latest")}
           selected={selectedIcon === "Mango"}
           onSelect={() => setSelectedIcon("Mango")}
         />
